@@ -3,6 +3,7 @@ const ctx = canvas.getContext("2d");
 const colors =document.getElementsByClassName("jsColor");
 const range = document.getElementById("jsRange");
 const mode = document.getElementById("jsMode");
+const saveBtn =document.getElementById("jsSave");
 
 const INITIAL__COLOR = "#2c2c2c";
 const CANVAS__SIZE = 600;
@@ -11,7 +12,8 @@ const CANVAS__SIZE = 600;
 canvas.width = CANVAS__SIZE;
 canvas.height = CANVAS__SIZE;
 
-
+ctx.fillStyle ="white";
+ctx.fillRect(0,0, CANVAS__SIZE, CANVAS__SIZE);
 ctx.strokeStyle = INITIAL__COLOR;
 ctx.fillStyle = INITIAL__COLOR;
 ctx.lineWidth = 2.5;
@@ -72,7 +74,13 @@ function handleCanvasClick(){
     ctx.fillRect(0,0, CANVAS__SIZE, CANVAS__SIZE);
     }
 }
-
+function handleSaveClick(){
+    const image = canvas.toDataURL("image/png");
+    const link =document.createElement("a");
+    link.href = image;
+    link.download = "PaintJS[🎨]";
+    link.click();
+}
 
 if(canvas){
     canvas.addEventListener("mousemove", onMouseMove);
@@ -93,4 +101,6 @@ if(mode){
     mode.addEventListener("click", handleModeClick);
 }
 
-
+if(saveBtn){
+    saveBtn.addEventListener("click", handleSaveClick);
+}
